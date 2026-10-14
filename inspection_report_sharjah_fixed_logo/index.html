@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    
+
+    <title>
+        نظام تقارير التفتيش التفصيلي
+    </title>
+
+    
+
+
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div
+    id="loginPage"
+    class="login-page"
+>
+
+
+    <div class="login-card">
+
+
+        <div class="logo" aria-label="شعار حكومة الشارقة"><img src="sharjah-logo.jpeg" alt="Government of Sharjah"></div>
+        <div class="brand-name">نظام تقارير التفتيش</div>
+
+
+        <h1>
+            نظام تقارير التفتيش التفصيلي
+        </h1>
+
+
+        <div class="subtitle">
+            الدخول إلى نظام الإبلاغ وإدخال تفاصيل التقرير
+        </div>
+
+
+        <label class="login-label">
+            اسم الموظف
+        </label>
+
+
+        <div class="input-box">
+
+            <span>
+                ♙
+            </span>
+
+            <input
+                id="employeeName"
+                type="text"
+                placeholder="اكتب اسمك الكامل"
+            >
+
+        </div>
+
+
+        <div class="role-title">
+            الخبرة
+        </div>
+
+
+        <div class="roles">
+
+
+            <button
+                class="role"
+                data-role="field"
+            >
+                موظف ميداني
+            </button>
+
+
+            <button
+                class="role active"
+                data-role="reviewer"
+            >
+                مسؤول المراجعة
+            </button>
+
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            onclick="login()"
+        >
+            دخول ←
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FIELD EMPLOYEE PAGE
+===================================================== -->
+
+<div
+    id="reportPage"
+    class="hidden"
+>
+
+
+    <header class="header">
+
+
+        <div class="header-brand"><div class="header-logo"><img src="sharjah-logo.jpeg" alt="Government of Sharjah"></div><div class="header-title">
+
+            <strong>
+                نظام تقارير التفتيش التفصيلي
+            </strong>
+
+            <small>
+                نموذج إدخال بيانات التقرير
+            </small>
+
+        </div></div>
+
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            خروج ↪
+        </button>
+
+
+    </header>
+
+
+
+    <main class="container">
+
+
+        <button class="previous">
+
+            ▣ &nbsp;
+            زيارة التفتيش المرجعية
+
+            <span>
+                ⌄
+            </span>
+
+        </button>
+
+
+
+        <!-- بيانات القطعة -->
+
+        <section class="panel">
+
+
+            <div class="panel-title">
+                بيانات القطعة
+            </div>
+
+
+            <div class="panel-body">
+
+
+                <div class="grid-2">
+
+
+                    <div class="field">
+
+                        <label>
+                            التاريخ
+                        </label>
+
+                        <input
+                            type="date"
+                            value="2026-08-25"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            اسم المالك
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="اسم المالك"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            رقم القطعة
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="رقم القطعة"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            المنطقة
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="المنطقة"
+                        >
+
+                    </div>
+
+                    <div class="field location-field">
+                        <label>الموقع الجغرافي (Location)</label>
+                        <input id="reportLocation" type="text" placeholder="اكتب الموقع أو العنوان">
+                        <div class="location-actions">
+                            <button type="button" class="small-action" onclick="useCurrentLocation()">تحديد موقعي الحالي</button>
+                            <a id="mapLink" class="map-link hidden" target="_blank" rel="noopener">فتح الموقع على الخريطة</a>
+                        </div>
+                        <input id="locationCoords" type="hidden">
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    class="field"
+                    style="margin-top:12px"
+                >
+
+                    <label>
+                        نوع القطعة
+                    </label>
+
+
+                    <div class="chips">
+
+                        <button class="chip">
+                            سكني
+                        </button>
+
+                        <button class="chip">
+                            زراعي
+                        </button>
+
+                        <button class="chip">
+                            صناعي
+                        </button>
+
+                        <button class="chip">
+                            تجاري
+                        </button>
+
+                        <button class="chip">
+                            عزبة
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="field"
+                    style="margin-top:12px"
+                >
+
+                    <label>
+                        رقم رخصة البناء (إن وجدت)
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="رقم الرخصة"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- نوع الطلب -->
+
+        <section class="panel">
+
+
+            <div class="panel-title">
+                نوع الطلب
+            </div>
+
+
+            <div class="panel-body">
+
+
+                <div class="request-grid">
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        شهادة إنجاز
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        توضيح بناء قائم مخالف
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        مبنى جديد
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        صيانة مبنى
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        من أجل توصيل كهرباء
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        من أجل توصيل مياه
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        من أجل إضافة اتصال
+                    </label>
+
+
+                    <label class="check">
+                        <input type="checkbox">
+                        من أجل إبراء أعمال أو استرداد تأمين
+                    </label>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- البناء المقترح -->
+
+        <section class="panel">
+
+
+            <div class="panel-title">
+                البناء المقترح
+            </div>
+
+
+            <div class="panel-body">
+
+
+                <div class="chips">
+
+
+                    <button class="chip">
+                        لا يوجد بناء مقترح
+                    </button>
+
+
+                    <button class="chip">
+                        مسكن (للدور الاستثماري)
+                    </button>
+
+
+                    <button class="chip">
+                        سور
+                    </button>
+
+
+                    <button class="chip">
+                        مظلة
+                    </button>
+
+
+                    <button class="chip">
+                        عادي
+                    </button>
+
+
+                </div>
+
+
+                <div
+                    class="grid-3"
+                    style="margin-top:14px"
+                >
+
+
+                    <div class="field">
+
+                        <label>
+                            عدد الكتل
+                        </label>
+
+                        <input
+                            type="number"
+                            value="5"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            الطول (م)
+                        </label>
+
+                        <input
+                            type="number"
+                            placeholder="الطول"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            العرض (م)
+                        </label>
+
+                        <input
+                            type="number"
+                            placeholder="العرض"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    class="field"
+                    style="margin-top:12px"
+                >
+
+                    <label>
+                        هل يوجد بناء قائم بالفعل؟
+                    </label>
+
+
+                    <div class="yes-no">
+
+                        <button class="selected">
+                            نعم (مع التعديل في الرسم)
+                        </button>
+
+                        <button>
+                            لا
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- الرسم الكروكي -->
+
+        <section class="panel">
+
+
+            <div class="panel-title">
+                الرسم الكروكي والملاحظات
+            </div>
+
+
+            <div class="panel-body">
+
+
+                <label>
+                    رفع الرسم الكروكي
+                </label>
+
+
+                <div
+                    id="uploadBox"
+                    class="upload-box"
+                >
+
+                    <div class="upload-icon">
+                        ☁
+                    </div>
+
+                    اضغط لرفع صورة الرسم الكروكي
+
+                </div>
+
+
+                <input
+                    id="file"
+                    type="file"
+                    accept="image/*"
+                    hidden
+                >
+
+
+                <div
+                    class="field"
+                    style="margin-top:12px"
+                >
+
+                    <label>
+                        الملاحظات العامة
+                    </label>
+
+                    <textarea
+                        rows="4"
+                        placeholder="أي ملاحظات إضافية..."
+                    ></textarea>
+
+                </div>
+
+
+                <div
+                    class="field"
+                    style="margin-top:12px"
+                >
+
+                    <label>
+                        الموظف المختص: LLL
+                    </label>
+
+                </div>
+
+
+                <button
+                    class="submit"
+                    onclick="submitReport()"
+                >
+                    إرسال التقرير للمسؤول &nbsp; ♙
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="success"
+            class="success hidden"
+        >
+            تم إرسال التقرير للمسؤول بنجاح ✓
+        </div>
+        <div id="reportActions" class="report-actions hidden">
+            <strong>تم حفظ التقرير على هذا الجهاز.</strong>
+            <p>يمكنك حفظ التقرير أو طباعته بصيغة PDF.</p>
+            <div class="action-buttons">
+                <button type="button" class="pdf-button" onclick="downloadReportPDF()">حفظ / طباعة PDF</button>
+            </div>
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     REVIEWER PAGE
+===================================================== -->
+
+<div
+    id="reviewPage"
+    class="hidden"
+>
+
+
+    <header class="header">
+
+
+        <div class="header-brand"><div class="header-logo"><img src="sharjah-logo.jpeg" alt="Government of Sharjah"></div><div class="header-title">
+
+            <strong>
+                تقرير تفتيش تفصيلي
+            </strong>
+
+            <small>
+                لوحة مراجعة التقارير - KHHG
+            </small>
+
+        </div></div>
+
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            خروج ↪
+        </button>
+
+
+    </header>
+
+
+
+    <main class="review-container">
+
+
+        <!-- الفلاتر -->
+
+        <div class="filters">
+
+
+            <button class="filter active">
+                الكل - 2
+            </button>
+
+
+            <button class="filter">
+                قيد المراجعة - 2
+            </button>
+
+
+            <button class="filter">
+                مقبول - 0
+            </button>
+
+
+            <button class="filter">
+                مرفوض - 0
+            </button>
+
+
+        </div>
+
+
+
+        <div id="savedReportsList" aria-live="polite"></div>
+
+        <!-- التقرير الأول -->
+
+        <section
+            class="report-card"
+            id="reportOne"
+        >
+
+
+            <div class="report-header">
+
+
+                <div>
+
+                    <strong>
+                        قطعة 32 - ASSD
+                    </strong>
+
+                    <small>
+                        25 - 2026/8/25 - LLL
+                        &nbsp;&nbsp;
+                        3:12:28 م
+                    </small>
+
+                </div>
+
+
+                <span
+                    id="statusOne"
+                    class="status"
+                >
+                    قيد المراجعة ⏱
+                </span>
+
+
+            </div>
+
+
+
+            <div class="report-content">
+
+
+                <div class="report-info">
+
+
+                    <div class="info-row">
+
+                        <span>
+                            التاريخ
+                        </span>
+
+                        <strong>
+                            2026-08-25
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            المنطقة
+                        </span>
+
+                        <strong>
+                            DGRG
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            نوع القطعة
+                        </span>
+
+                        <strong>
+                            سكني
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            رقم القطعة
+                        </span>
+
+                        <strong>
+                            2344
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            نوع الطلب
+                        </span>
+
+                        <strong>
+                            مقترح بناء جديد
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            البناء المقترح
+                        </span>
+
+                        <strong>
+                            5 × 7 م
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="drawing">
+
+
+                    <label>
+                        الرسم الكروكي
+                    </label>
+
+
+                    <div
+                        id="reviewDrawing"
+                        class="drawing-image"
+                    >
+
+                        <div class="ninja">
+                            🥷
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="notes">
+
+                <span>
+                    الملاحظات العامة
+                </span>
+
+                <p>
+                    FRDHTG
+                </p>
+
+            </div>
+
+
+
+            <div class="review-buttons">
+
+
+                <button
+                    class="reject"
+                    onclick="rejectReport()"
+                >
+                    رفض ⊗
+                </button>
+
+
+                <button
+                    class="under-review"
+                    onclick="reviewReport()"
+                >
+                    قيد المراجعة ⏱
+                </button>
+
+
+                <button
+                    class="accept"
+                    onclick="acceptReport()"
+                >
+                    قبول ⊙
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- التقرير الثاني -->
+
+        <section
+            class="report-card collapsed"
+            id="reportTwo"
+        >
+
+
+            <div class="report-header">
+
+
+                <div>
+
+                    <strong>
+                        قطعة 345 - LJ
+                    </strong>
+
+                    <small>
+                        25 - 2026/8/25 - LLL
+                        &nbsp;&nbsp;
+                        3:09:58 م
+                    </small>
+
+                </div>
+
+
+                <span class="status">
+                    قيد المراجعة ⏱
+                </span>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
